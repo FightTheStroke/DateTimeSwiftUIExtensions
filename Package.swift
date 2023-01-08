@@ -5,6 +5,10 @@ import PackageDescription
 
 let package = Package(
     name: "DateTimeSwiftUIExtensions",
+    defaultLocalization: "en",
+    platforms: [
+            .macOS(.v10_14), .iOS(.v13), .tvOS(.v13)
+        ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
@@ -20,7 +24,10 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "DateTimeSwiftUIExtensions",
-            dependencies: []),
+            dependencies: [],
+            resources: [
+                .process("Resources")]
+        ),
         .testTarget(
             name: "DateTimeSwiftUIExtensionsTests",
             dependencies: ["DateTimeSwiftUIExtensions"]),

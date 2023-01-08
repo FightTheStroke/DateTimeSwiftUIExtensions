@@ -1,3 +1,4 @@
 # DateTimeSwiftUIExtensions
 
-A description of this package.
+# a lot of useful extensions for manipulating dates and time
+hours, seconds, days, weekdays and many more
