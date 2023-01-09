@@ -454,7 +454,7 @@ public extension String {
     }
 }
 
-extension Date {
+public extension Date {
     var startOfMonth: Date {
         let calendar = Calendar(identifier: .gregorian)
         let components = calendar.dateComponents([.year, .month], from: self)
@@ -484,7 +484,7 @@ extension Date {
 }
 
 
-extension Date {
+public extension Date {
     func weeksAgo(number: Int) -> Date {
         return Calendar(identifier: .gregorian).date(byAdding: .weekOfYear, value: -number, to: self)!
     }
