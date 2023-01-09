@@ -207,13 +207,6 @@ public extension Date {
         return calendar.date(from: components)!
     }
     
-    var endOfDay: Date {
-        var components = DateComponents()
-        components.day = 1
-        let date = Calendar.current.date(byAdding: components, to: startOfDay)
-        return (date?.addingTimeInterval(-1))!
-    }
-    
     var dayBefore: Date {
         Calendar.current.date(byAdding: .day, value: -1, to: noon)!
     }
@@ -458,5 +451,55 @@ public extension String {
 
     mutating func capitalizeFirstLetter() {
         self = capitalizingFirstLetter()
+    }
+}
+
+extension Date {
+    var startOfMonth: Date {
+        let calendar = Calendar(identifier: .gregorian)
+        let components = calendar.dateComponents([.year, .month], from: self)
+        return  calendar.date(from: components)!
+    }
+
+    var endOfDay: Date {
+        var components = DateComponents()
+        components.day = 1
+        components.second = -1
+        return Calendar.current.date(byAdding: components, to: startOfDay)!
+    }
+    
+
+    var endOfMonth: Date {
+        var components = DateComponents()
+        components.month = 1
+        components.second = -1
+        return Calendar(identifier: .gregorian).date(byAdding: components, to: startOfMonth)!
+    }
+
+    func isMonday() -> Bool {
+        let calendar = Calendar(identifier: .gregorian)
+        let components = calendar.dateComponents([.weekday], from: self)
+        return components.weekday == 2
+    }
+}
+
+
+extension Date {
+    func weeksAgo(number: Int) -> Date {
+        return Calendar(identifier: .gregorian).date(byAdding: .weekOfYear, value: -number, to: self)!
+    }
+    
+    var startOfWeek: Date {
+        Calendar(identifier: .gregorian).dateComponents([.calendar, .yearForWeekOfYear, .weekOfYear], from: self).date!.addDay(number: 1)
+    }
+    
+    var weekOfTheYear: Int {
+        let components = Calendar.current.dateComponents([.weekOfYear], from: self)
+        return components.weekOfYear ?? 1
+    }
+
+    var endOfWeek: Date {
+        let nextWeek = Calendar(identifier: .gregorian).date(byAdding: .weekOfYear, value: 1, to: self)
+        return nextWeek?.daysAgo(number: 1).endOfDay ?? self
     }
 }
